@@ -11,48 +11,35 @@ use App\matakuliah
 
 class Dosen_matakuliahcontroller extends Controller
 {
-    //
-    protected $informasi = 'Gagal Melakukan Aksi'
+     protected $informasi = 'Gagal melakukan aksi';
+
     public function awal()
     {
-        $semuaDosen_Matakuliah = dosen_matakuliah::all();
+        $semuaDosen_Matakuliah = Dosen_Matakuliah::all();
         return view('dosen_matakuliah.awal', compact('semuaDosen_Matakuliah'));
-    }
-   /*{
-    	return "Hello dari Dosen_matakuliahcontroller";
+        // return "Hello dari Dosen_MatakuliahController";
     }
 
     public function tambah()
-    {
-    	return $this->simpan();
-    }
-    public function simpan()
-    {
-    	$dosen_matakuliah = new dosen_matakuliah();
-    	$dosen_matakuliah -> dosen_id = 1;
-    	$dosen_matakuliah -> matakuliah_id =1;
-
-    	$dosen_matakuliah->save();
-    	return "Data dengan id dosen : {$dosen_matakuliah->dosen_id} dan id matakuliah : {$dosen_matakuliah->matakuliah_id} Telah disimpan";
-
-    }
-}*/
-
-return view('pengguna.awal',['data'=>dosen_matakuliah:all()]);
-    }
-    public function tambah()
-    {
+    {      
         $dosen = new Dosen;
-        $matakuliah = new Matakuliah;
-        return view('dosen_matakuliah.tambah',compact('dosen','matakuliah'));
-        return $this->simpan();
+        $matakuliah = new matakuliah;
+        return view('dosen_matakuliah.tambah', compact('dosen','matakuliah'));
+        return $this->simpan(); 
     }
-    public function simpan(Requests $input)
+    public function simpan(Request $input)
     {
-        $dosen_matakuliah = new Dosen_Matakuliah($input->only('dosen_id','matakuliah_id'));
-            if($jadwal_matakuliah->save()) $this->informasi = "Jadwal Dosen Mengajar berhasil disimpan";
-            return redirect('dosen_matakuliah')->with(['informasi'=>$this->informasi]);
-    }
+        $dosen_matakuliah = new Dosen_Matakuliah($input->only('dosen','matakuliah'));
+            if($dosen_matakuliah->save()) $this->informasi = "Jadwal Dosen Mengajar berhasil disimpan";
+            return redirect('dosen_matakuliah.awal')->with(['informasi'=>$this->informasi]);
+
+        // $dosen_matakuliah = new Dosen_Matakuliah();
+        // $dosen_matakuliah->dosen_id = 1;
+        // $dosen_matakuliah->matakuliah_id = 1;
+        
+        // $dosen_matakuliah->save();
+        // return "Data dengan id dosen : {$dosen_matakuliah->dosen_id} dan id matakuliah : {$dosen_matakuliah->matakuliah_id} Telah Disimpan";
+        
     }
     public function lihat($id){
         $dosen_matakuliah = Dosen_Matakuliah::find($id);

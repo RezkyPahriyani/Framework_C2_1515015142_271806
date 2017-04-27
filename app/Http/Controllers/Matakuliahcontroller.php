@@ -9,37 +9,27 @@ use App\Matakuliah;
 
 class Matakuliahcontroller extends Controller
 {
-    //
-     public function awal()
-  /*  {
-    	return "Hello dari Matakuliahcontroller";
+    public function awal()
+    {
+        // return "Hello dari MatakuliahController";
+        return view ('matakuliah.awal', ['data'=>Matakuliah::all()]) ;
     }
 
     public function tambah()
     {
-    	return $this->simpan();
+        // return $this->simpan();
+        return view('matakuliah.tambah');
     }
 
-    public function simpan()
+    public function simpan(Request $input)
     {
-    	$matakuliah = new Matakuliah();
-    	$matakuliah -> title = 'Pemrograman Framework';
-    	$matakuliah -> keterangan = 'Mata Kuliah Wajib';
-    	$matakuliah->save();
-    	return "Data dengan title {$matakuliah->title} Telah Disimpan";
-    	
-    }
-}
-*/
-return view('pengguna.awal',['data'=>Matakuliah:all()]);
-    }
-    public function tambah()
-    {
-        return view('Matakuliah.tambah');
-    }
-    public function simpan(Requests $input)
-
- $matakuliah = new Matakuliah;
+        // $matakuliah = new Matakuliah();
+        // $matakuliah -> title = 'Pemrograman Framework';
+        // $matakuliah -> keterangan = 'Mata Kuliah Wajib';
+        // $matakuliah->save();
+        // return "Data dengan title {$matakuliah->title} Telah Disimpan";
+        
+        $matakuliah = new Matakuliah;
         $matakuliah->title = $input->title;
         $matakuliah->keterangan = $input->keterangan;
         $informasi = $matakuliah->save() ? 'Berhasil simpan data':'Gagal simpan data';

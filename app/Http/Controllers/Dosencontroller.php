@@ -10,32 +10,24 @@ use App\pengguna;
 
 class Dosencontroller extends Controller
 {
-    //
+     //
+    protected $informasi = 'Gagal melakukan aksi'; //
     public function awal()
     {
-    	/*return "Hello dari Dosencontroller"; */
-        protected $informasi = 'Gagal melakukan aksi'; //
-    public function awal()
-    {
-        $semuaDosen = Dosen::all();//
+        //return "Hello dari DosenController";
+       // return view('dosen.awal', ['data'=>Dosen::all()]);
+       $semuaDosen = Dosen::all();//
         return view('dosen.awal', compact('semuaDosen'));
     }
+
     public function tambah()
     {
-    	/*return $this->simpan();*/
-         return view('dosen.tambah');
+        //return $this->simpan();
+        return view('dosen.tambah');
     }
-    public function simpan()
-    {
-    	/*$dosen = new Dosen();
-    	$dosen -> nama = "Rezky pahriyani";
-    	$dosen -> nip = "1515015142";
-    	$dosen -> alamat = "monginsidi";
-    	$dosen -> pengguna_id = 1;
 
-    	$dosen -> save();
-    	return "Data dengan nama {$dosen->nama} Telah Disimpan";
-    */
+    public function simpan(Request $input)
+    {
         $pengguna = new Pengguna($input->only('username','password'));
             if ($pengguna->save()) {
                 $dosen = new Dosen;
@@ -45,9 +37,18 @@ class Dosencontroller extends Controller
                 if($pengguna->dosen()->save($dosen)) $this->informasi='Berhasil simpan data';
             }        
         return redirect ('dosen')->with(['informasi'=>$this->informasi]);
-    }
 
-}
+        // $dosen = new Dosen;
+        // $dosen->nama = $input->nama;
+        // $dosen->nip = $input->nip;
+        // $dosen->alamat = $input->alamat;
+        // $dosen->pengguna_id = $input->pengguna_id;
+     //    $informasi = $dosen->save() ? 'Berhasil simpan data' : 'Gagal simpan data';
+     //    return redirect ('dosen')->with(['informasi'=>$informasi]); 
+
+        // $dosen->save();
+        // return "Data dengan nama {$dosen->nama} Telah Disimpan";
+    }
 
     public function edit($id)
     {
@@ -67,7 +68,8 @@ class Dosencontroller extends Controller
         $dosen->nama = $input->nama;
         $dosen->nip = $input->nip;
         $dosen->alamat = $input->alamat;
-        $dosen->pengguna_id = $input->pengguna_id;
+        // $dosen->pengguna_id = $input->pengguna_id;
+        $dosen->save();
         if(!is_null($input->username)){
             $pengguna = $dosen->pengguna->fill($input->only('username'));
                 if(!empty($input->password)) $pengguna->password = $input->password;

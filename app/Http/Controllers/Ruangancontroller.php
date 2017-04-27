@@ -9,36 +9,27 @@ use App\Ruangan;
 
 class Ruangancontroller extends Controller
 {
-    //
-    public function awal()
-   /* {
-    	return "Hello dari Ruangancontroller";
+     public function awal()
+    {
+        // return "Hello dari RuanganController";
+        return view('ruangan.awal',['data'=>Ruangan::all()]) ;
     }
 
     public function tambah()
     {
-    	return $this->simpan();
+        // return $this->simpan();
+        return view('ruangan.tambah') ;
     }
 
-    public function simpan()
+    public function simpan(Request $input)
     {
-    	$ruang = new Ruangan();
-    	$ruang -> title = 'Lab BP';
-    	$ruang->save();
+        // $ruang = new Ruangan();
+        // $ruang -> title = 'Lab BP';
+        // $ruang->save();
         
-    	return "Data dengan title {$ruang->title} Telah Disimpan";
-    	
-    }
-} */
-return view('pengguna.awal',['data'=>Ruangan:all()]);
-    }
-    public function tambah()
-    {
-        return view('Ruangan.tambah');
-    }
-    public function simpan(Requests $input)
-
-     $ruangan = new Ruangan;
+        // return "Data dengan title {$ruang->title} Telah Disimpan";
+        
+        $ruangan = new Ruangan;
         $ruangan->title = $input ->title;
         $informasi = $ruangan-> save()  ? 'Berhasil simpan data' : 'Gagal simpan data';
         return redirect('ruangan')->with(['informasi'=>$informasi]);
@@ -68,6 +59,3 @@ return view('pengguna.awal',['data'=>Ruangan:all()]);
 
     }
 }
-
-
-
